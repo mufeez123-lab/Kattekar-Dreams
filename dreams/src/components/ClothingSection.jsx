@@ -37,20 +37,20 @@ const ClothingSection = () => {
                   {product.tag}
                 </div>
 
-          <a
+       <a
   href={`https://wa.me/916362514956?text=${encodeURIComponent(
     `Hello, I want to order:\n\n` +
-    `Product: ${product.name}\n` +
-    `Price: ${product.price}\n` +
-    `Category: ${product.category}\n\n` +
-    `Image: ${window.location.origin}${product.image}`
+    `*Product:* ${product.name}\n` +
+    `*Price:* ${product.price}\n` +
+    `*Category:* ${product.category}\n\n` +
+    `*View Product:* ${window.location.origin}${product.image}`
   )}`}
   target="_blank"
   rel="noopener noreferrer"
   className="absolute bottom-0 w-full bg-white text-black py-2 font-bold translate-y-full group-hover:translate-y-0 transition-transform duration-300 text-center"
 >
   <div className='flex items-center justify-center gap-2'>
-    <img src="/whatsapp.png" alt="" className='h-10' /> 
+    <img src="/whatsapp.png" alt="WhatsApp" className='h-8' /> 
     <span>Order on WhatsApp</span>
   </div>
 </a>
