@@ -197,7 +197,7 @@ const ClothingSection = () => {
           {/* WhatsApp Checkout - Pushed to bottom of container */}
           <div className="mt-auto pt-6">
             <a
-              href={`https://wa.me/917090038818?text=${encodeURIComponent(
+              href={`https://wa.me/919448104211?text=${encodeURIComponent(
                 `*NEW ORDER INQUIRY*\n\n` +
                 `*Product:* ${selectedProduct.name}\n` +
                 `*Size:* ${selectedSize || 'Not selected'}\n` +
