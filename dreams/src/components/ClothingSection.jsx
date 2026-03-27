@@ -154,29 +154,25 @@ const ClothingSection = () => {
                   ))}
                 </div>
               </div>
-         <a 
+     <a 
   href={selectedSize ? 
     `https://wa.me/919448104211?text=${encodeURIComponent(
       `NEW ORDER INQUIRY\n\n` +
       `Product: ${selectedProduct.name}\n` +
       `Size: ${selectedSize}\n` +
       `Price: ${selectedProduct.price}\n\n` +
-      // Only add the image link if it's NOT a Base64 string
-      (selectedProduct.image.startsWith('data:') 
-        ? "[Image Uploaded via Admin]" 
-        : `Image: https://kattekar-dreams.vercel.app${selectedProduct.image.startsWith('/') ? '' : '/'}${selectedProduct.image}`)
+      `Image: ${
+        selectedProduct.image.startsWith('http') 
+          ? selectedProduct.image // It's already a full link (ImgBB/Cloudinary)
+          : `https://kattekar-dreams.vercel.app${selectedProduct.image.startsWith('/') ? '' : '/'}${selectedProduct.image}` // It's a local file
+      }`
     )}` 
     : '#'} 
-  target={selectedSize ? "_blank" : "_self"}
+  target="_blank"
   rel="noreferrer" 
-  onClick={(e) => !selectedSize && e.preventDefault()}
-  className={`block w-full py-4 text-center font-black uppercase tracking-widest transition-all duration-300 ${
-    !selectedSize 
-      ? 'bg-zinc-800 text-gray-500 cursor-not-allowed' 
-      : 'bg-[#e8d574] text-black hover:scale-[1.01] active:scale-95'
-  }`}
+  className="..."
 >
-  {selectedSize ? 'Order via WhatsApp' : 'Select a Size'}
+  Order via WhatsApp
 </a>
             </div>
           </div>
