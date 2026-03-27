@@ -17,17 +17,38 @@ const Footer = () => {
             </h2>
             <p className="text-gray-400 max-w-sm leading-relaxed mb-8">
 Based in Sullya, delivering premium clothing with a focus on comfort, quality, and modern style.</p>
-            <div className="flex space-x-5">
-              {['Instagram', 'YouTube', 'Vimeo', 'Twitter'].map((social) => (
-                <a 
-                  key={social} 
-                  href="#" 
-                  className="text-xs uppercase tracking-[0.2em] text-gray-500 hover:text-[#e8d574] transition-colors"
-                >
-                  {social}
-                </a>
-              ))}
-            </div>
+           <div className="flex items-center space-x-4">
+  {/* Instagram Icon */}
+  <a 
+    href="https://www.instagram.com/kattekar_dreams/" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="group transition-transform duration-300 hover:scale-110"
+  >
+    <img 
+      src="/images/instagram.png" 
+      alt="Instagram" 
+      className="h-12 w-12 object-contain  transition-all filter  group-hover:grayscale-0" 
+    />
+  </a>
+
+  {/* Separator */}
+  <div className="h-4 w-[1px] bg-white/10"></div>
+
+  {/* WhatsApp Icon */}
+  <a 
+    href="https://wa.me/917090038818" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="group transition-transform duration-300 hover:scale-110"
+  >
+    <img 
+      src="/images/whatsapp.png" 
+      alt="WhatsApp" 
+      className="h-10 w-10 object-contain  transition-all filter " 
+    />
+  </a>
+</div>
           </div>
 
           {/* Quick Links */}
@@ -65,12 +86,9 @@ Based in Sullya, delivering premium clothing with a focus on comfort, quality, a
             KATTEKAR DREAMS
           </h1>
 
-          <div className="flex flex-col md:flex-row justify-between w-full text-[10px] text-gray-500 uppercase tracking-[0.4em] gap-6">
+          <div className="flex flex-col md:flex-row justify-center w-full text-[10px] text-gray-500 uppercase tracking-[0.4em] gap-6">
             <p className="text-center md:text-left">© {currentYear} Kattekar Dreams. All Rights Reserved.</p>
-            <div className="flex justify-center md:justify-end space-x-10">
-              <a href="#" className="hover:text-[#e8d574] transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-[#e8d574] transition-colors">Terms of Use</a>
-            </div>
+         
           </div>
         </div>
 

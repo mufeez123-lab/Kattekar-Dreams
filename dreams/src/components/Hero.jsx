@@ -42,6 +42,7 @@ const EditorialHero = () => {
           <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase italic mb-8">
          Kattekar<br /> 
             <span className="text-transparent stroke-text">Dreams</span> <br /> 
+            <p className='text-xl tracking-wider'>Mens Outlet </p>
         
           </h1>
           
@@ -97,7 +98,7 @@ const EditorialHero = () => {
             <img 
               src={img} 
               alt={`Slide ${index}`} 
-              className="w-full h-full object-cover  hover:grayscale-0 transition-all duration-700"
+              className="w-full h-full object-cover opacity-50 hover:opacity-100  hover:grayscale-0 transition-all duration-700"
             />
           </div>
         ))}

@@ -41,14 +41,20 @@ const ClothingProcessSection = () => {
           </p>
           
           {/* Specs/Features */}
-          <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
-            <div>
-              <h4 className="text-white font-bold text-2xl uppercase italic">320 GSM</h4>
-              <p className="text-gray-500 text-xs uppercase tracking-widest mt-1">Premium Heavyweight</p>
-            </div>
+          <div className="grid grid-cols-2  border-t border-white/10 pt-8">
+         
             <div>
               <h4 className="text-white font-bold text-2xl uppercase italic">Mens</h4>
               <p className="text-gray-500 text-xs uppercase tracking-widest mt-1">Oversized Fit</p>
+            </div>
+            <div>
+              <a href="#clothing"> <button 
+           
+              className="group relative px-5 py-4 bg-[#e8d574] text-black font-black text-[10px] tracking-[0.4em] rounded-[50px] uppercase transition-all hover:bg-white overflow-hidden"
+            >
+              <span className="relative text-[12px] z-10">Order Now</span>
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </button></a>
             </div>
           </div>
           
