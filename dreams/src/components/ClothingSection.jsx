@@ -196,20 +196,20 @@ const ClothingSection = () => {
 
           {/* WhatsApp Checkout - Pushed to bottom of container */}
           <div className="mt-auto pt-6">
-            <a
-              href={`https://wa.me/919448104211?text=${encodeURIComponent(
-                `*NEW ORDER INQUIRY*\n\n` +
-                `*Product:* ${selectedProduct.name}\n` +
-                `*Size:* ${selectedSize || 'Not selected'}\n` +
-                `*Price:* ${selectedProduct.price}` +
-                `*Image:* ${window.location.origin}${selectedProduct.image}`
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group relative flex items-center justify-center gap-3 py-4 text-center font-black transition-all overflow-hidden ${
-                !selectedSize ? 'bg-zinc-800 grayscale cursor-not-allowed text-gray-500' : 'bg-[#e8d574] text-black'
-              }`}
-            >
+          <a
+  href={`https://wa.me/919448104211?text=${encodeURIComponent(
+    `*NEW ORDER INQUIRY*\n\n` +
+    `*Product:* ${selectedProduct.name}\n` +
+    `*Size:* ${selectedSize || 'Not selected'}\n` +
+    `*Price:* ${selectedProduct.price}\n\n` +
+    `_Ref: ${window.location.origin.replace('https://', '')}${selectedProduct.image}_`
+  )}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`group relative flex items-center justify-center gap-3 py-4 text-center font-black transition-all overflow-hidden ${
+    !selectedSize ? 'bg-zinc-800 grayscale cursor-not-allowed text-gray-500' : 'bg-[#e8d574] text-black'
+  }`}
+>
               <img src="/images/whatsapp.png" alt="WA" className='h-6 md:h-7 relative z-10' />
               <span className="relative z-10 text-[12px] md:text-[14px] uppercase tracking-[0.2em]">
                 {selectedSize ? 'Order via WhatsApp' : 'Select a Size'}
