@@ -9,7 +9,7 @@ function App() {
         {/* Public Storefront */}
         <Route path="/" element={<Homepage />} />
 
-        {/* Secret Admin Link */}
+        {/* Secret Admin Page */}
         <Route path="/admin-kattekar-secret" element={<Dashboard />} />
       </Routes>
     </Router>
