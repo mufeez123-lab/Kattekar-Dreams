@@ -5,42 +5,48 @@
       "name": "Cinematic Oversized Tee",
       "price": "₹1,499",
       "category": "Shirt",
-      "image": "/images/image2.webp"
+      "image": "/images/image2.webp",
+      "sizes": ["S", "M", "L", "XL", "XXL"]
     },
     {
       "id": 2,
       "name": "Director's Cut Hoodie",
       "price": "₹2,999",
       "category": "Shirt",
-      "image": "/images/image.jpg"
+      "image": "/images/image.jpg",
+      "sizes": ["S", "M", "L", "XL", "XXL"]
     },
     {
       "id": 3,
       "name": "Midnight Crewneck",
       "price": "₹1,899",
       "category": "Pant",
-      "image": "/images/image3.jpg"
+      "image": "/images/image3.jpg",
+      "sizes": ["S", "M", "L", "XL"]
     },
     {
       "id": 4,
       "name": "Vision Cargo Pants",
       "price": "₹2,499",
       "category": "Shirt",
-      "image": "/images/image6.webp"
+      "image": "/images/image6.webp",
+      "sizes": ["M", "L", "XL", "XXL"]
     },
     {
       "id": 5,
       "name": "Studio Joggers",
       "price": "₹1,999",
       "category": "Pant",
-      "image": "/images/image5.jpg"
+      "image": "/images/image5.jpg",
+      "sizes": ["S", "M", "L", "XL"]
     },
     {
       "id": 6,
       "name": "Classic Script Tee",
       "price": "₹1,299",
       "category": "Pant",
-      "image": "/images/image7.webp"
+      "image": "/images/image7.webp",
+      "sizes": ["S", "M", "L", "XL", "XXL"]
     }
   ]
 }

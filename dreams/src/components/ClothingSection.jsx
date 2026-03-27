@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
-// Import your JSON data
+// Import your JSON data (ensure your JSON now includes the "sizes" array)
 import data from '../products/products.json'; 
 
 const ClothingSection = () => {
-  // 1. STATE MANAGEMENT
   const [activeCategory, setActiveCategory] = useState('All');
   const [maxPrice, setMaxPrice] = useState(5000);
-  const [selectedProduct, setSelectedProduct] = useState(null); // For the Detail Modal
+  const [selectedProduct, setSelectedProduct] = useState(null); 
+  const [selectedSize, setSelectedSize] = useState(''); // New state for size selection
 
-  // 2. FILTER LOGIC
   const filteredProducts = data.products.filter((product) => {
-    // Clean price string (e.g., "₹2,999" -> 2999)
     const priceValue = parseInt(product.price.replace(/[^0-9]/g, ''), 10);
     const matchesCategory = activeCategory === 'All' || product.category.toLowerCase().includes(activeCategory.toLowerCase());
     const matchesPrice = priceValue <= maxPrice;
-
     return matchesCategory && matchesPrice;
   });
+
+  // Helper to open modal and reset size
+  const openDetails = (product) => {
+    setSelectedProduct(product);
+    setSelectedSize(''); // Reset size when opening new product
+  };
 
   return (
     <section id="clothing" className="bg-[#0a0a0a] py-24 px-6 md:px-20 overflow-hidden relative min-h-screen">
@@ -74,17 +77,14 @@ const ClothingSection = () => {
               <div 
                 key={product.id} 
                 className="group relative animate-fade-in cursor-pointer"
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => openDetails(product)}
               >
-                {/* Image Container */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5">
                   <img 
                     src={product.image} 
                     alt={product.name}
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-in-out"
                   />
-                  
-                  {/* Quick View Overlay */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span className="text-[10px] text-white font-black tracking-[0.4em] uppercase border border-white/20 px-4 py-2 backdrop-blur-md">
                       View Details
@@ -92,15 +92,11 @@ const ClothingSection = () => {
                   </div>
                 </div>
 
-                {/* Info Block */}
                 <div className="mt-5 flex justify-between items-start">
                   <div>
                     <h4 className="text-white font-bold text-sm md:text-lg uppercase tracking-tighter italic group-hover:text-[#e8d574] transition-colors">
                       {product.name}
                     </h4>
-                    <p className="text-gray-600 text-[9px] mt-1 uppercase tracking-[0.2em]">
-                      {product.category}
-                    </p>
                   </div>
                   <span className="text-[#e8d574] text-sm md:text-lg font-black italic">{product.price}</span>
                 </div>
@@ -116,118 +112,127 @@ const ClothingSection = () => {
       </div>
 
       {/* PRODUCT DETAILS MODAL */}
-      {/* PRODUCT DETAILS MODAL */}
-{selectedProduct && (
-  <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4">
-    {/* Backdrop */}
-    <div 
-      className="absolute inset-0 bg-black/95 backdrop-blur-2xl animate-fade-in"
-      onClick={() => setSelectedProduct(null)}
-    ></div>
+      {selectedProduct && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4">
+          <div 
+            className="absolute inset-0 bg-black/95 backdrop-blur-2xl animate-fade-in"
+            onClick={() => setSelectedProduct(null)}
+          ></div>
 
-    {/* Modal Card */}
-    <div className="relative w-full h-full md:h-auto md:max-w-6xl bg-[#0d0d0d] border-t md:border border-white/10 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-2xl animate-modal-up">
-      
-      {/* Close Button - Fixed on mobile for easy access */}
-      <button 
-        onClick={() => setSelectedProduct(null)}
-        className="absolute top-6 right-6 z-50 text-white/50 hover:text-white transition-colors bg-black/20 p-2 backdrop-blur-md md:bg-transparent"
-      >
-        <span className="text-[10px] tracking-[0.3em] font-black uppercase">Close [X]</span>
-      </button>
+          <div className="relative w-full h-full md:h-auto md:max-w-6xl bg-[#0d0d0d] border-t md:border border-white/10 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-2xl animate-modal-up">
+            
+            <button 
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-6 right-6 z-50 text-white/50 hover:text-white transition-colors bg-black/20 p-2 backdrop-blur-md md:bg-transparent"
+            >
+              <span className="text-[10px] tracking-[0.3em] font-black uppercase">Close [X]</span>
+            </button>
 
-      {/* Left: Visuals - Set a fixed height on mobile so it doesn't push content too far down */}
-      <div className="w-full md:w-1/2 min-h-[40vh] md:h-full bg-zinc-900 relative">
-        <img 
-          src={selectedProduct.image} 
-          className="w-full h-full object-cover animate-slow-zoom" 
-          alt={selectedProduct.name} 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-t"></div>
-      </div>
+            <div className="w-full md:w-1/2 min-h-[40vh] md:h-full bg-zinc-900 relative">
+              <img 
+                src={selectedProduct.image} 
+                className="w-full h-full object-cover animate-slow-zoom" 
+                alt={selectedProduct.name} 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            </div>
 
-      {/* Right: Narrative - Adjusted padding for mobile */}
-      <div className="w-full md:w-1/2 p-8 md:p-20 flex flex-col justify-center">
-        <p className="text-[#e8d574] font-black tracking-[0.5em] text-[9px] md:text-[10px] uppercase mb-4 md:mb-6">
-          {selectedProduct.category}
-        </p>
-        
-        <h2 className="text-4xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-6 md:mb-8">
-          {selectedProduct.name.split(' ').map((word, i) => (
-            <span key={i} className={i % 2 !== 0 ? "text-transparent border-text" : "block"}>
-              {word}{" "}
-            </span>
-          ))}
-        </h2>
+            <div className="w-full md:w-1/2 p-8 md:p-20 flex flex-col justify-center">
+              <p className="text-[#e8d574] font-black tracking-[0.5em] text-[9px] md:text-[10px] uppercase mb-4 md:mb-6">
+                {selectedProduct.category}
+              </p>
+              
+              <h2 className="text-4xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-6 md:mb-8">
+                {selectedProduct.name.split(' ').map((word, i) => (
+                  <span key={i} className={i % 2 !== 0 ? "text-transparent border-text" : "block"}>
+                    {word}{" "}
+                  </span>
+                ))}
+              </h2>
 
-        <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
-          <span className="text-3xl md:text-4xl font-black text-white italic">{selectedProduct.price}</span>
-          <div className="h-[1px] flex-grow bg-white/10"></div>
-        </div>
+              <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+                <span className="text-3xl md:text-4xl font-black text-white italic">{selectedProduct.price}</span>
+                <div className="h-[1px] flex-grow bg-white/10"></div>
+              </div>
 
-        <div className="space-y-4 md:space-y-6 mb-10 md:mb-12">
-          <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed">
-            Part of Kattekar. Engineered with premium <span className="text-white font-bold">320 GSM heavyweight cotton</span>. 
-            Designed for an architectural, oversized fit.
-          </p>
-          
-          <div className="flex gap-3 md:gap-4">
-             <div className="bg-white/5 px-3 py-2 md:px-4 md:py-2 border border-white/5 flex-1 md:flex-none">
-                <p className="text-[8px] md:text-[9px] text-gray-500 uppercase font-black">Fit</p>
-                <p className="text-xs text-white uppercase font-bold">Oversized</p>
-             </div>
-             <div className="bg-white/5 px-3 py-2 md:px-4 md:py-2 border border-white/5 flex-1 md:flex-none">
-                <p className="text-[8px] md:text-[9px] text-gray-500 uppercase font-black">Origin</p>
-                <p className="text-xs text-white uppercase font-bold">Sullya</p>
-             </div>
+              <div className="space-y-4 md:space-y-6 mb-10 md:mb-12">
+                <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed">
+                  Part of Kattekar. Engineered with premium <span className="text-white font-bold">320 GSM heavyweight cotton</span>. 
+                  Designed for an architectural, oversized fit.
+                </p>
+                
+                <div className="flex flex-wrap gap-3 md:gap-4">
+                  {/* SIZE CHART REPLACEMENT */}
+                  <div className="bg-white/5 px-3 py-2 md:px-4 md:py-3 border border-white/5 flex-1 min-w-[140px]">
+                    <p className="text-[8px] md:text-[9px] text-gray-500 uppercase font-black mb-2">Select Size</p>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct.sizes?.map((size) => (
+                        <button 
+                          key={size} 
+                          onClick={() => setSelectedSize(size)}
+                          className={`text-[10px] md:text-xs px-3 py-1 border transition-all font-bold ${
+                            selectedSize === size 
+                            ? 'bg-[#e8d574] border-[#e8d574] text-black' 
+                            : 'text-white border-white/20 hover:border-white'
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+               
+                </div>
+              </div>
+
+              {/* WhatsApp Checkout */}
+              <a
+                href={`https://wa.me/916362514956?text=${encodeURIComponent(
+                  `*NEW ORDER INQUIRY*\n\n` +
+                  `*Product:* ${selectedProduct.name}\n` +
+                  `*Size:* ${selectedSize || 'Not selected'}\n` +
+                  `*Price:* ${selectedProduct.price}\n` +
+                  `*Link:* ${window.location.origin}${selectedProduct.image}`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group relative py-5 md:py-4 text-center font-black transition-all overflow-hidden ${
+                  !selectedSize ? 'bg-zinc-700 grayscale cursor-not-allowed' : 'bg-[#e8d574] text-black'
+                }`}
+              >
+                <div className='flex items-center justify-center gap-2 relative z-10'>
+                  <img src="/images/whatsapp.png" alt="WA" className='h-6 md:h-8' />
+                  <span className="text-[14px] md:text-[15px] uppercase tracking-[0.2em]">
+                    {selectedSize ? 'Order via WhatsApp' : 'Select a Size First'}
+                  </span>
+                </div>
+                {selectedSize && <div className="absolute inset-0 bg-white translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>}
+              </a>
+            </div>
           </div>
         </div>
-
-        {/* WhatsApp Checkout - Sticky button behavior on very small screens can be added if needed */}
-        <a
-          href={`https://wa.me/916362514956?text=${encodeURIComponent(
-            `*NEW ORDER INQUIRY*\n\n` +
-            `*Product:* ${selectedProduct.name}\n` +
-            `*Price:* ${selectedProduct.price}\n` +
-            `*Link:* ${window.location.origin}${selectedProduct.image}`
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative w-full bg-[#e8d574] text-black py-5 md:py-6 text-center font-black tracking-[0.4em] text-[10px] uppercase overflow-hidden mt-auto md:mt-0"
-        >
-          <span className="relative z-10">Initiate WhatsApp Order</span>
-          <div className="absolute inset-0 bg-white translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-        </a>
-      </div>
-    </div>
-  </div>
-)}
-    
+      )}
 
       {/* STYLES */}
       <style jsx>{`
         .border-text { -webkit-text-stroke: 1px rgba(255,255,255,0.5); }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes modalUp {
-          from { opacity: 0; transform: scale(0.95) translateY(30px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes slowZoom {
-          from { transform: scale(1); }
-          to { transform: scale(1.1); }
-        }
-
         .animate-fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-modal-up { animation: modalUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-slow-zoom { animation: slowZoom 20s infinite alternate linear; }
 
-        /* Custom Range Slider Styling */
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes modalUp {
+          from { opacity: 0; transform: scale(0.95) translateY(30px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes slowZoom {
+          from { transform: scale(1); }
+          to { transform: scale(1.1); }
+        }
         input[type='range']::-webkit-slider-thumb {
           -webkit-appearance: none;
           height: 12px;
@@ -235,7 +240,6 @@ const ClothingSection = () => {
           border-radius: 50%;
           background: #e8d574;
           cursor: pointer;
-          box-shadow: 0 0 10px rgba(232, 213, 116, 0.4);
         }
       `}</style>
     </section>
