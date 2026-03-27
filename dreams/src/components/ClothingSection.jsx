@@ -154,14 +154,17 @@ const ClothingSection = () => {
                   ))}
                 </div>
               </div>
-            <a 
+         <a 
   href={selectedSize ? 
     `https://wa.me/919448104211?text=${encodeURIComponent(
       `NEW ORDER INQUIRY\n\n` +
       `Product: ${selectedProduct.name}\n` +
       `Size: ${selectedSize}\n` +
-      `Price: ${selectedProduct.price.includes('₹') ? selectedProduct.price : '₹' + selectedProduct.price}\n\n` +
-      `Image: https://kattekar-dreams.vercel.app${selectedProduct.image.startsWith('/') ? '' : '/'}${selectedProduct.image}`
+      `Price: ${selectedProduct.price}\n\n` +
+      // Only add the image link if it's NOT a Base64 string
+      (selectedProduct.image.startsWith('data:') 
+        ? "[Image Uploaded via Admin]" 
+        : `Image: https://kattekar-dreams.vercel.app${selectedProduct.image.startsWith('/') ? '' : '/'}${selectedProduct.image}`)
     )}` 
     : '#'} 
   target={selectedSize ? "_blank" : "_self"}
@@ -174,7 +177,7 @@ const ClothingSection = () => {
   }`}
 >
   {selectedSize ? 'Order via WhatsApp' : 'Select a Size'}
-</a>``
+</a>
             </div>
           </div>
         </div>
