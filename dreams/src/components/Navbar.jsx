@@ -29,7 +29,7 @@ const Navbar = () => {
         {/* CENTERED LOGO with Fade-In Animation */}
         <div className="animate-fade-in-slow ">
          <h2 className="text-3xl font-black italic text-white uppercase tracking-tighter ">
-              Kattekar<span className="text-[#e8d574] px-3">Dreams</span>
+              Kattekar<span className="text-[#e8d574] px-3 font-lobster-two-regular">Dreams</span>
             </h2>
             <div className="flex items-center justify-center">
 

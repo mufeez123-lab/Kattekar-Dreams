@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-// Import the separated JSON data
+// Import your JSON data
 import data from '../products/products.json'; 
 
 const ClothingSection = () => {
-  // 1. State for filters
+  // 1. STATE MANAGEMENT
   const [activeCategory, setActiveCategory] = useState('All');
-  const [maxPrice, setMaxPrice] = useState(5000); // Set a default high value
+  const [maxPrice, setMaxPrice] = useState(5000);
+  const [selectedProduct, setSelectedProduct] = useState(null); // For the Detail Modal
 
-  // 2. Filter Logic
+  // 2. FILTER LOGIC
   const filteredProducts = data.products.filter((product) => {
-    // Clean price string (e.g., "₹2,999" -> 2999) to compare numbers
+    // Clean price string (e.g., "₹2,999" -> 2999)
     const priceValue = parseInt(product.price.replace(/[^0-9]/g, ''), 10);
-    
     const matchesCategory = activeCategory === 'All' || product.category.toLowerCase().includes(activeCategory.toLowerCase());
     const matchesPrice = priceValue <= maxPrice;
 
@@ -19,123 +19,223 @@ const ClothingSection = () => {
   });
 
   return (
-    <section id='clothing' className="bg-[#0a0a0a] py-24 px-6 md:px-20 overflow-hidden">
+    <section id="clothing" className="bg-[#0a0a0a] py-24 px-6 md:px-20 overflow-hidden relative min-h-screen">
       <div className="max-w-7xl mx-auto">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="max-w-xl">
-            <h2 className="text-[#e8d574] font-bold tracking-[0.3em] text-xs uppercase mb-4">
+        {/* SECTION HEADER */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div className="max-w-xl animate-fade-in">
+            <h2 className="text-[#e8d574] font-bold tracking-[0.4em] text-[10px] uppercase mb-4 flex items-center gap-3">
+              <span className="w-8 h-[1px] bg-[#e8d574]/30"></span>
               The Apparel Line
             </h2>
-            <h3 className="text-4xl md:text-6xl font-black text-white uppercase italic leading-none">
+            <h3 className="text-5xl md:text-7xl font-black text-white uppercase italic leading-[0.85] tracking-tighter">
               Wear the <br /> <span className="text-transparent border-text">Vision.</span>
             </h3>
           </div>
           
-          {/* 3. Filter Controls UI */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
+          {/* FILTER CONTROLS */}
+          <div className="flex flex-col gap-6 p-6 bg-white/5 backdrop-blur-md border border-white/5 rounded-sm">
+            <div className="flex items-center gap-3">
               {['All', 'Shirt', 'Pant'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`text-[10px] tracking-[0.2em] uppercase font-bold px-4 py-2 border transition-all ${
+                  className={`text-[9px] tracking-[0.3em] uppercase font-black px-5 py-2 transition-all ${
                     activeCategory === cat 
-                    ? 'bg-yellow-500 border-yellow-500 text-black' 
-                    : 'border-white/10 text-gray-500 hover:border-white/30'
+                    ? 'bg-[#e8d574] text-black' 
+                    : 'text-gray-500 hover:text-white'
                   }`}
                 >
-                  {cat}
+                  {cat}s
                 </button>
               ))}
             </div>
             
-            <div className="flex items-center gap-4">
-              <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Max Price: ₹{maxPrice}</span>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-[9px] text-gray-500 uppercase tracking-widest font-black">Max Budget</span>
+                <span className="text-[11px] text-[#e8d574] font-bold italic">₹{maxPrice}</span>
+              </div>
               <input 
-                type="range" 
-                min="500" 
-                max="5000" 
-                step="100"
+                type="range" min="500" max="5000" step="100"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="accent-yellow-500 w-32 h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer"
+                className="accent-[#e8d574] w-full h-[2px] bg-zinc-800 appearance-none cursor-pointer"
               />
             </div>
           </div>
         </div>
 
-        {/* Product Grid - Mapping through FILTERED data */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 min-h-[400px]">
+        {/* PRODUCT GRID */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 min-h-[500px]">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <div key={product.id} className="group relative animate-fade-in">
+              <div 
+                key={product.id} 
+                className="group relative animate-fade-in cursor-pointer"
+                onClick={() => setSelectedProduct(product)}
+              >
+                {/* Image Container */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5">
                   <img 
                     src={product.image} 
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-110"
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-in-out"
                   />
                   
-                  <a
-                    href={`https://wa.me/916362514956?text=${encodeURIComponent(
-                      `Hello, I want to order:\n\n` +
-                      `*Product:* ${product.name}\n` +
-                      `*Price:* ${product.price}\n` +
-                      `*Category:* ${product.category}\n\n` +
-                      `*View Product:* ${window.location.origin}${product.image}`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute bottom-0 w-full bg-white text-black md:py-3 font-bold translate-y-full group-hover:translate-y-0 transition-transform duration-300 text-center"
-                  >
-                    <div className='flex items-center justify-center gap-2'>
-                      <img src="/whatsapp.png" alt="WhatsApp" className='h-5 md:h-6' /> 
-                      <span className='text-[10px] md:text-sm uppercase tracking-tighter'>Order on WhatsApp</span>
-                    </div>
-                  </a>
+                  {/* Quick View Overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="text-[10px] text-white font-black tracking-[0.4em] uppercase border border-white/20 px-4 py-2 backdrop-blur-md">
+                      View Details
+                    </span>
+                  </div>
                 </div>
 
-                <div className="mt-3 md:mt-5 flex justify-between items-start">
+                {/* Info Block */}
+                <div className="mt-5 flex justify-between items-start">
                   <div>
-                    <h4 className="text-white font-medium text-[14px] md:text-lg group-hover:text-[#e8d574] transition-colors">
+                    <h4 className="text-white font-bold text-sm md:text-lg uppercase tracking-tighter italic group-hover:text-[#e8d574] transition-colors">
                       {product.name}
                     </h4>
-                    <p className="text-gray-500 text-[9px] md:text-sm mt-1 uppercase tracking-widest">
+                    <p className="text-gray-600 text-[9px] mt-1 uppercase tracking-[0.2em]">
                       {product.category}
                     </p>
                   </div>
-                  <span className="text-white text-[15px] md:text-lg font-bold">{product.price}</span>
+                  <span className="text-[#e8d574] text-sm md:text-lg font-black italic">{product.price}</span>
                 </div>
               </div>
             ))
           ) : (
-            <div className="col-span-full flex flex-col items-center justify-center py-20 border border-dashed border-white/10">
-              <p className="text-gray-500 uppercase tracking-widest text-sm italic">No products match your filter.</p>
-              <button onClick={() => {setActiveCategory('All'); setMaxPrice(5000);}} className="mt-4 text-[#e8d574] text-xs font-bold underline">Reset Filters</button>
+            <div className="col-span-full flex flex-col items-center justify-center py-32 border border-dashed border-white/10">
+              <p className="text-gray-600 uppercase tracking-[0.5em] text-xs italic">No pieces found in this range.</p>
+              <button onClick={() => {setActiveCategory('All'); setMaxPrice(5000);}} className="mt-6 text-[#e8d574] text-[10px] font-black tracking-widest uppercase underline underline-offset-8">Reset Collection</button>
             </div>
           )}
         </div>
-
-        {/* Footer Link */}
-        <div className="mt-24 text-center">
-          <button className="group relative inline-flex items-center space-x-4 text-white hover:text-[#e8d574] transition-colors">
-       
-            <div className="w-12 h-[1px] bg-yellow-500 group-hover:w-20 transition-all"></div>
-          </button>
-        </div>
-
       </div>
 
+      {/* PRODUCT DETAILS MODAL */}
+      {/* PRODUCT DETAILS MODAL */}
+{selectedProduct && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4">
+    {/* Backdrop */}
+    <div 
+      className="absolute inset-0 bg-black/95 backdrop-blur-2xl animate-fade-in"
+      onClick={() => setSelectedProduct(null)}
+    ></div>
+
+    {/* Modal Card */}
+    <div className="relative w-full h-full md:h-auto md:max-w-6xl bg-[#0d0d0d] border-t md:border border-white/10 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-2xl animate-modal-up">
+      
+      {/* Close Button - Fixed on mobile for easy access */}
+      <button 
+        onClick={() => setSelectedProduct(null)}
+        className="absolute top-6 right-6 z-50 text-white/50 hover:text-white transition-colors bg-black/20 p-2 backdrop-blur-md md:bg-transparent"
+      >
+        <span className="text-[10px] tracking-[0.3em] font-black uppercase">Close [X]</span>
+      </button>
+
+      {/* Left: Visuals - Set a fixed height on mobile so it doesn't push content too far down */}
+      <div className="w-full md:w-1/2 min-h-[40vh] md:h-full bg-zinc-900 relative">
+        <img 
+          src={selectedProduct.image} 
+          className="w-full h-full object-cover animate-slow-zoom" 
+          alt={selectedProduct.name} 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-t"></div>
+      </div>
+
+      {/* Right: Narrative - Adjusted padding for mobile */}
+      <div className="w-full md:w-1/2 p-8 md:p-20 flex flex-col justify-center">
+        <p className="text-[#e8d574] font-black tracking-[0.5em] text-[9px] md:text-[10px] uppercase mb-4 md:mb-6">
+          {selectedProduct.category}
+        </p>
+        
+        <h2 className="text-4xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-6 md:mb-8">
+          {selectedProduct.name.split(' ').map((word, i) => (
+            <span key={i} className={i % 2 !== 0 ? "text-transparent border-text" : "block"}>
+              {word}{" "}
+            </span>
+          ))}
+        </h2>
+
+        <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+          <span className="text-3xl md:text-4xl font-black text-white italic">{selectedProduct.price}</span>
+          <div className="h-[1px] flex-grow bg-white/10"></div>
+        </div>
+
+        <div className="space-y-4 md:space-y-6 mb-10 md:mb-12">
+          <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed">
+            Part of Kattekar. Engineered with premium <span className="text-white font-bold">320 GSM heavyweight cotton</span>. 
+            Designed for an architectural, oversized fit.
+          </p>
+          
+          <div className="flex gap-3 md:gap-4">
+             <div className="bg-white/5 px-3 py-2 md:px-4 md:py-2 border border-white/5 flex-1 md:flex-none">
+                <p className="text-[8px] md:text-[9px] text-gray-500 uppercase font-black">Fit</p>
+                <p className="text-xs text-white uppercase font-bold">Oversized</p>
+             </div>
+             <div className="bg-white/5 px-3 py-2 md:px-4 md:py-2 border border-white/5 flex-1 md:flex-none">
+                <p className="text-[8px] md:text-[9px] text-gray-500 uppercase font-black">Origin</p>
+                <p className="text-xs text-white uppercase font-bold">Sullya</p>
+             </div>
+          </div>
+        </div>
+
+        {/* WhatsApp Checkout - Sticky button behavior on very small screens can be added if needed */}
+        <a
+          href={`https://wa.me/916362514956?text=${encodeURIComponent(
+            `*NEW ORDER INQUIRY*\n\n` +
+            `*Product:* ${selectedProduct.name}\n` +
+            `*Price:* ${selectedProduct.price}\n` +
+            `*Link:* ${window.location.origin}${selectedProduct.image}`
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative w-full bg-[#e8d574] text-black py-5 md:py-6 text-center font-black tracking-[0.4em] text-[10px] uppercase overflow-hidden mt-auto md:mt-0"
+        >
+          <span className="relative z-10">Initiate WhatsApp Order</span>
+          <div className="absolute inset-0 bg-white translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+)}
+    
+
+      {/* STYLES */}
       <style jsx>{`
-        .border-text { -webkit-text-stroke: 1px white; }
+        .border-text { -webkit-text-stroke: 1px rgba(255,255,255,0.5); }
+        
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
+          from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in {
-          animation: fadeIn 0.5s ease-out forwards;
+        
+        @keyframes modalUp {
+          from { opacity: 0; transform: scale(0.95) translateY(30px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes slowZoom {
+          from { transform: scale(1); }
+          to { transform: scale(1.1); }
+        }
+
+        .animate-fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-modal-up { animation: modalUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-slow-zoom { animation: slowZoom 20s infinite alternate linear; }
+
+        /* Custom Range Slider Styling */
+        input[type='range']::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 12px;
+          width: 12px;
+          border-radius: 50%;
+          background: #e8d574;
+          cursor: pointer;
+          box-shadow: 0 0 10px rgba(232, 213, 116, 0.4);
         }
       `}</style>
     </section>
