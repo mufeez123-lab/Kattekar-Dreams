@@ -170,9 +170,13 @@ const ClothingSection = () => {
     : '#'} 
   target="_blank"
   rel="noreferrer" 
-  className="..."
+ className={`block w-full py-4 text-center font-black uppercase tracking-widest transition-all duration-300 ${
+    !selectedSize 
+      ? 'bg-zinc-800 text-gray-500 cursor-not-allowed' 
+      : 'bg-[#e8d574] text-black hover:scale-[1.01] active:scale-95'
+  }`}
 >
-  Order via WhatsApp
+  {selectedSize ? 'Order via WhatsApp' : 'Select a Size'}
 </a>
             </div>
           </div>
