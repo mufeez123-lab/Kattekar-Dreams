@@ -1,0 +1,50 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Cinematic Oversized Tee",
+      "price": "₹1,499",
+      "tag": "Essential",
+      "category": "Kattekar Series 01",
+      "image": "/images/image.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Director's Cut Hoodie",
+      "price": "₹2,999",
+      "tag": "Limited Edition",
+      "category": "Kattekar Series 01",
+   "image": "/images/image.jpg"    },
+    {
+      "id": 3,
+      "name": "Midnight Crewneck",
+      "price": "₹1,899",
+      "tag": "New Arrival",
+      "category": "Kattekar Series 01",
+   "image": "/images/image.jpg"    },
+    {
+      "id": 4,
+      "name": "Midnight Crewneck",
+      "price": "₹1,899",
+      "tag": "New Arrival",
+      "category": "Kattekar Series 01",
+   "image": "/images/image.jpg"    
+},
+ {
+      "id": 5,
+      "name": "Midnight Crewneck",
+      "price": "₹1,899",
+      "tag": "New Arrival",
+      "category": "Kattekar Series 01",
+   "image": "/images/image.jpg"    
+},
+ {
+      "id": 6,
+      "name": "Midnight Crewneck",
+      "price": "₹1,899",
+      "tag": "New Arrival",
+      "category": "Kattekar Series 01",
+   "image": "/images/image.jpg"    
+}
+  ]
+}
