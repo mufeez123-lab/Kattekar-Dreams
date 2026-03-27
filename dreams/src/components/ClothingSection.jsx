@@ -111,108 +111,119 @@ const ClothingSection = () => {
         </div>
       </div>
 
-      {/* PRODUCT DETAILS MODAL */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4">
-          <div 
-            className="absolute inset-0 bg-black/95 backdrop-blur-2xl animate-fade-in"
-            onClick={() => setSelectedProduct(null)}
-          ></div>
+   {/* PRODUCT DETAILS MODAL */}
+{selectedProduct && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 lg:p-12">
+    {/* Backdrop */}
+    <div 
+      className="absolute inset-0 bg-black/95 backdrop-blur-xl animate-fade-in"
+      onClick={() => setSelectedProduct(null)}
+    ></div>
 
-          <div className="relative w-full h-full md:h-auto md:max-w-6xl bg-[#0d0d0d] border-t md:border border-white/10 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-2xl animate-modal-up">
+    {/* Modal Card */}
+    <div className="relative w-full max-w-7xl max-h-[95vh] md:max-h-[85vh] bg-[#0d0d0d] border border-white/10 flex flex-col md:flex-row overflow-hidden shadow-2xl animate-modal-up">
+      
+      {/* Close Button - Responsive Position */}
+      <button 
+        onClick={() => setSelectedProduct(null)}
+        className="absolute top-4 right-4 z-50 text-white/50 hover:text-white transition-colors bg-black/40 p-2 rounded-full md:bg-transparent md:top-8 md:right-8"
+      >
+        <span className="text-[9px] md:text-[10px] tracking-[0.3em] font-black uppercase">Close [X]</span>
+      </button>
+
+      {/* Left: Visuals - Fixed height on mobile, full height on desktop */}
+      <div className="w-full md:w-1/2 h-[35vh] md:h-auto overflow-hidden bg-zinc-900 relative">
+        <img 
+          src={selectedProduct.image} 
+          className="w-full h-full  object-cover animate-slow-zoom" 
+          alt={selectedProduct.name} 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+      </div>
+
+      {/* Right: Narrative - Scrollable content area */}
+      <div className="w-full md:w-1/2 flex flex-col overflow-y-auto">
+        <div className="p-6 md:p-12 lg:p-16 flex flex-col min-h-full">
+          {/* Category & Title */}
+          <p className="text-[#e8d574] font-black tracking-[0.5em] text-[9px] md:text-[10px] uppercase mb-4">
+            {selectedProduct.category}
+          </p>
+          
+      <h2 className="text-3xl md:text-5xl  font-black text-white italic uppercase tracking-tighter leading-[0.9] mb-6">
+  {selectedProduct.name.split(' ').map((word, i) => (
+    <span 
+      key={i} 
+      className={`inline-block mr-2 ${i % 2 !== 0 ? "text-transparent border-text" : ""}`}
+    >
+      {word}
+    </span>
+  ))}
+</h2>
+
+          {/* Price & Divider */}
+          <div className="flex items-center gap-4 mb-8">
+            <span className="text-2xl md:text-3xl font-black text-white italic">{selectedProduct.price}</span>
+            <div className="h-[1px] flex-grow bg-white/10"></div>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-6 mb-10">
+            <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed">
+              Part of Kattekar. Engineered with premium <span className="text-white font-bold">320 GSM heavyweight cotton</span>. 
+              Designed for an architectural, oversized fit.
+            </p>
             
-            <button 
-              onClick={() => setSelectedProduct(null)}
-              className="absolute top-6 right-6 z-50 text-white/50 hover:text-white transition-colors bg-black/20 p-2 backdrop-blur-md md:bg-transparent"
-            >
-              <span className="text-[10px] tracking-[0.3em] font-black uppercase">Close [X]</span>
-            </button>
-
-            <div className="w-full md:w-1/2 min-h-[40vh] md:h-full bg-zinc-900 relative">
-              <img 
-                src={selectedProduct.image} 
-                className="w-full h-full object-cover animate-slow-zoom" 
-                alt={selectedProduct.name} 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-            </div>
-
-            <div className="w-full md:w-1/2 p-8 md:p-20 flex flex-col justify-center">
-              <p className="text-[#e8d574] font-black tracking-[0.5em] text-[9px] md:text-[10px] uppercase mb-4 md:mb-6">
-                {selectedProduct.category}
-              </p>
-              
-              <h2 className="text-4xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-6 md:mb-8">
-                {selectedProduct.name.split(' ').map((word, i) => (
-                  <span key={i} className={i % 2 !== 0 ? "text-transparent border-text" : "block"}>
-                    {word}{" "}
-                  </span>
+            {/* Size Selector Box */}
+            <div className="bg-white/5 p-4 border border-white/5">
+              <p className="text-[9px] text-gray-500 uppercase font-black mb-3 tracking-widest">Select Size</p>
+              <div className="flex flex-wrap gap-2">
+                {selectedProduct.sizes?.map((size) => (
+                  <button 
+                    key={size} 
+                    onClick={() => setSelectedSize(size)}
+                    className={`min-w-[45px] py-2 border text-[11px] md:text-xs transition-all font-bold ${
+                      selectedSize === size 
+                      ? 'bg-[#e8d574] border-[#e8d574] text-black' 
+                      : 'text-white border-white/20 hover:border-white'
+                    }`}
+                  >
+                    {size}
+                  </button>
                 ))}
-              </h2>
-
-              <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
-                <span className="text-3xl md:text-4xl font-black text-white italic">{selectedProduct.price}</span>
-                <div className="h-[1px] flex-grow bg-white/10"></div>
               </div>
-
-              <div className="space-y-4 md:space-y-6 mb-10 md:mb-12">
-                <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed">
-                  Part of Kattekar. Engineered with premium <span className="text-white font-bold">320 GSM heavyweight cotton</span>. 
-                  Designed for an architectural, oversized fit.
-                </p>
-                
-                <div className="flex flex-wrap gap-3 md:gap-4">
-                  {/* SIZE CHART REPLACEMENT */}
-                  <div className="bg-white/5 px-3 py-2 md:px-4 md:py-3 border border-white/5 flex-1 min-w-[140px]">
-                    <p className="text-[8px] md:text-[9px] text-gray-500 uppercase font-black mb-2">Select Size</p>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProduct.sizes?.map((size) => (
-                        <button 
-                          key={size} 
-                          onClick={() => setSelectedSize(size)}
-                          className={`text-[10px] md:text-xs px-3 py-1 border transition-all font-bold ${
-                            selectedSize === size 
-                            ? 'bg-[#e8d574] border-[#e8d574] text-black' 
-                            : 'text-white border-white/20 hover:border-white'
-                          }`}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-               
-                </div>
-              </div>
-
-              {/* WhatsApp Checkout */}
-              <a
-                href={`https://wa.me/916362514956?text=${encodeURIComponent(
-                  `*NEW ORDER INQUIRY*\n\n` +
-                  `*Product:* ${selectedProduct.name}\n` +
-                  `*Size:* ${selectedSize || 'Not selected'}\n` +
-                  `*Price:* ${selectedProduct.price}\n` +
-                  `*Link:* ${window.location.origin}${selectedProduct.image}`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group relative py-5 md:py-4 text-center font-black transition-all overflow-hidden ${
-                  !selectedSize ? 'bg-zinc-700 grayscale cursor-not-allowed' : 'bg-[#e8d574] text-black'
-                }`}
-              >
-                <div className='flex items-center justify-center gap-2 relative z-10'>
-                  <img src="/images/whatsapp.png" alt="WA" className='h-6 md:h-8' />
-                  <span className="text-[14px] md:text-[15px] uppercase tracking-[0.2em]">
-                    {selectedSize ? 'Order via WhatsApp' : 'Select a Size First'}
-                  </span>
-                </div>
-                {selectedSize && <div className="absolute inset-0 bg-white translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>}
-              </a>
             </div>
           </div>
+
+          {/* WhatsApp Checkout - Pushed to bottom of container */}
+          <div className="mt-auto pt-6">
+            <a
+              href={`https://wa.me/916362514956?text=${encodeURIComponent(
+                `*NEW ORDER INQUIRY*\n\n` +
+                `*Product:* ${selectedProduct.name}\n` +
+                `*Size:* ${selectedSize || 'Not selected'}\n` +
+                `*Price:* ${selectedProduct.price}` +
+                `*Image:* ${window.location.origin}${selectedProduct.image}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group relative flex items-center justify-center gap-3 py-4 text-center font-black transition-all overflow-hidden ${
+                !selectedSize ? 'bg-zinc-800 grayscale cursor-not-allowed text-gray-500' : 'bg-[#e8d574] text-black'
+              }`}
+            >
+              <img src="/images/whatsapp.png" alt="WA" className='h-6 md:h-7 relative z-10' />
+              <span className="relative z-10 text-[12px] md:text-[14px] uppercase tracking-[0.2em]">
+                {selectedSize ? 'Order via WhatsApp' : 'Select a Size'}
+              </span>
+              {selectedSize && (
+                <div className="absolute inset-0 bg-white translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+              )}
+            </a>
+          </div>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
 
       {/* STYLES */}
       <style jsx>{`
