@@ -201,7 +201,7 @@ const ClothingSection = () => {
                 `*NEW ORDER INQUIRY*\n\n` +
                 `*Product:* ${selectedProduct.name}\n` +
                 `*Size:* ${selectedSize || 'Not selected'}\n` +
-                `*Price:* ${selectedProduct.price}` +
+                `*Price:* ${selectedProduct.price}\n` +
                 `*Image:* ${window.location.origin}${selectedProduct.image}`
               )}`}
               target="_blank"
