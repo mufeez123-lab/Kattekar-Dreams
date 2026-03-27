@@ -154,10 +154,27 @@ const ClothingSection = () => {
                   ))}
                 </div>
               </div>
-              <a href={`https://wa.me/919448104211?text=Order:${selectedProduct.name}`} target="_blank" rel="noreferrer" 
-                 className={`block w-full py-4 text-center font-black uppercase tracking-widest ${!selectedSize ? 'bg-zinc-800 text-gray-500' : 'bg-[#e8d574] text-black'}`}>
-                {selectedSize ? 'Order via WhatsApp' : 'Select a Size'}
-              </a>
+             <a 
+  href={selectedSize ? 
+    `https://wa.me/919448104211?text=${encodeURIComponent(
+      `NEW ORDER INQUIRY\n\n` +
+      `Product: ${selectedProduct.name}\n` +
+      `Size: ${selectedSize}\n` +
+      `Price: ₹${selectedProduct.price}\n\n` +
+      `Image: https://kattekar-dreams.vercel.app${selectedProduct.image}`
+    )}` 
+    : '#'} 
+  target={selectedSize ? "_blank" : "_self"}
+  rel="noreferrer" 
+  onClick={(e) => !selectedSize && e.preventDefault()}
+  className={`block w-full py-4 text-center font-black uppercase tracking-widest transition-all duration-300 ${
+    !selectedSize 
+      ? 'bg-zinc-800 text-gray-500 cursor-not-allowed' 
+      : 'bg-[#e8d574] text-black hover:scale-[1.01] active:scale-95'
+  }`}
+>
+  {selectedSize ? 'Order via WhatsApp' : 'Select a Size'}
+</a>
             </div>
           </div>
         </div>
