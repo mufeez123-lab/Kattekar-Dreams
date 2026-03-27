@@ -5,7 +5,7 @@
       "name": "Cinematic Oversized Tee",
       "price": "₹1,499",
       "category": "Shirt",
-      "image": "/images/image.jpg"
+      "image": "/images/image2.webp"
     },
     {
       "id": 2,
@@ -18,29 +18,29 @@
       "id": 3,
       "name": "Midnight Crewneck",
       "price": "₹1,899",
-      "category": "Shirt",
-      "image": "/images/image.jpg"
+      "category": "Pant",
+      "image": "/images/image3.jpg"
     },
     {
       "id": 4,
       "name": "Vision Cargo Pants",
       "price": "₹2,499",
-      "category": "Pant",
-      "image": "/images/image.jpg"
+      "category": "Shirt",
+      "image": "/images/image6.webp"
     },
     {
       "id": 5,
       "name": "Studio Joggers",
       "price": "₹1,999",
       "category": "Pant",
-      "image": "/images/image.jpg"
+      "image": "/images/image5.jpg"
     },
     {
       "id": 6,
       "name": "Classic Script Tee",
       "price": "₹1,299",
-      "category": "Shirt",
-      "image": "/images/image.jpg"
+      "category": "Pant",
+      "image": "/images/image7.webp"
     }
   ]
 }

@@ -10,20 +10,13 @@ const ClothingProcessSection = () => {
           <div className="relative aspect-video overflow-hidden rounded-sm">
             {/* Main Lifestyle Shot - Featuring Men */}
             <img 
-         src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=1887&auto=format&fit=crop"
-              className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all duration-700"
+         src="/images/shopname.png"
+              className="w-full h-full  brightness-75 group-hover:brightness-100 transition-all duration-700"
               alt="Kattekar  Men's Lifestyle"
             />
             
             {/* Texture/Detail Inset Image - Featuring Men's apparel detail */}
-            <div className="absolute -bottom-6 -right-6 w-1/2 aspect-video border-4 border-black overflow-hidden shadow-2xl">
-               <img 
-                src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=2070&auto=format&fit=crop" 
-                className="w-full h-full object-cover"
-                alt="Fabric Detail"
-              />
-              <div className="absolute inset-0 bg-[#e8d574]/20 mix-blend-multiply"></div>
-            </div>
+           
           </div>
         </div>
 
