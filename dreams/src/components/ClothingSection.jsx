@@ -19,13 +19,13 @@ const ClothingSection = () => {
   });
 
   return (
-    <section className="bg-[#0a0a0a] py-24 px-6 md:px-20 overflow-hidden">
+    <section id='clothing' className="bg-[#0a0a0a] py-24 px-6 md:px-20 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-xl">
-            <h2 className="text-yellow-500 font-bold tracking-[0.3em] text-xs uppercase mb-4">
+            <h2 className="text-[#e8d574] font-bold tracking-[0.3em] text-xs uppercase mb-4">
               The Apparel Line
             </h2>
             <h3 className="text-4xl md:text-6xl font-black text-white uppercase italic leading-none">
@@ -99,7 +99,7 @@ const ClothingSection = () => {
 
                 <div className="mt-3 md:mt-5 flex justify-between items-start">
                   <div>
-                    <h4 className="text-white font-medium text-[14px] md:text-lg group-hover:text-yellow-500 transition-colors">
+                    <h4 className="text-white font-medium text-[14px] md:text-lg group-hover:text-[#e8d574] transition-colors">
                       {product.name}
                     </h4>
                     <p className="text-gray-500 text-[9px] md:text-sm mt-1 uppercase tracking-widest">
@@ -113,15 +113,15 @@ const ClothingSection = () => {
           ) : (
             <div className="col-span-full flex flex-col items-center justify-center py-20 border border-dashed border-white/10">
               <p className="text-gray-500 uppercase tracking-widest text-sm italic">No products match your filter.</p>
-              <button onClick={() => {setActiveCategory('All'); setMaxPrice(5000);}} className="mt-4 text-yellow-500 text-xs font-bold underline">Reset Filters</button>
+              <button onClick={() => {setActiveCategory('All'); setMaxPrice(5000);}} className="mt-4 text-[#e8d574] text-xs font-bold underline">Reset Filters</button>
             </div>
           )}
         </div>
 
         {/* Footer Link */}
         <div className="mt-24 text-center">
-          <button className="group relative inline-flex items-center space-x-4 text-white hover:text-yellow-500 transition-colors">
-            <span className="text-sm font-bold tracking-[0.2em] uppercase">Browse Full Collection</span>
+          <button className="group relative inline-flex items-center space-x-4 text-white hover:text-[#e8d574] transition-colors">
+       
             <div className="w-12 h-[1px] bg-yellow-500 group-hover:w-20 transition-all"></div>
           </button>
         </div>

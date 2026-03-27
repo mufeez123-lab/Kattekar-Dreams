@@ -4,7 +4,6 @@ import { MapPin } from 'lucide-react';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Add scroll effect for a glassmorphism look
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -14,43 +13,63 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 px-6 py-2 ${
-      isScrolled ? 'bg-black/80 backdrop-blur-md border-b border-white/10' : 'bg-transparent'
+    <nav className={`fixed w-full z-50 transition-all duration-500 px-6 py-4 ${
+      isScrolled ? 'bg-black/60 backdrop-blur-xl ' : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
+      {/* 
+        Container setup: 
+        - justify-center keeps the logo in the middle.
+        - items-center keeps the button aligned.
+      */}
+      <div className="max-w-7xl mx-auto flex justify-between items-center relative">
         
-        {/* Brand / Logo */}
-        <div className="group cursor-pointer">
-        <img src="/images/logo.png" alt="" className='h-20' />
+        {/* Invisible spacer to perfectly balance the button on the right */}
+        <div className="hidden md:block w-[140px]"></div>
+
+        {/* CENTERED LOGO with Fade-In Animation */}
+        <div className="animate-fade-in-slow ">
+         <h2 className="text-3xl font-black italic text-white uppercase tracking-tighter mb-6">
+              Kattekar<span className="text-[#e8d574] px-3">Dreams</span>
+            </h2>
         </div>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex space-x-8 items-center">
-          {['Portfolio', 'Services', 'Gallery', 'About'].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`} 
-              className="text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              {item}
-            </a>
-          ))}
-          
-          {/* CTA Button */}
-         <button className="flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full text-sm font-bold hover:bg-yellow-500 hover:text-white transition-all transform hover:scale-105 shadow-lg">
-  <MapPin size={18} className="text-yellow-500 group-hover:text-white transition-colors" />
-  LOCATION
-</button>
+        {/* RIGHT SIDE: Location CTA */}
+        <div className="animate-fade-in-right">
+       <a 
+  href="https://maps.app.goo.gl/tEDquNDp6RTT7V978"
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="no-underline"
+>
+  <button className="flex items-center gap-2 bg-white text-black px-5 py-2 rounded-full text-[10px] md:text-xs font-black tracking-widest hover:bg-yellow-500 hover:text-white transition-all transform hover:scale-105 shadow-xl uppercase group">
+    <MapPin 
+      size={14} 
+      className="text-[#e8d574] group-hover:text-white transition-colors" 
+    />
+    <span className="hidden sm:inline">Location</span>
+  </button>
+</a>
         </div>
-
-        {/* Mobile Menu Icon (Placeholder) */}
-        <div className="md:hidden text-white cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-        </div>
-
       </div>
+
+      {/* Animation Styles */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+          from { opacity: 0; transform: translateX(20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-fade-in-slow {
+          animation: fadeIn 1.2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+        }
+        .animate-fade-in-right {
+          animation: fadeInRight 1s cubic-bezier(0.2, 1, 0.3, 1) 0.3s forwards;
+          opacity: 0;
+        }
+      `}</style>
     </nav>
   );
 };
